@@ -48,31 +48,31 @@
 #include <fastrack/sensor/sphere_sensor_params.h>
 #include <fastrack_msgs/SensedSpheres.h>
 
-#include <ros/ros.h>
-#include <visualization_msgs/Marker.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Vector3.h>
+#include <ros/ros.h>
+#include <visualization_msgs/Marker.h>
 
 namespace fastrack {
 namespace environment {
 
 using sensor::SphereSensorParams;
 
-class BallsInBox : public Environment<
-  fastrack_msgs::SensedSpheres, SphereSensorParams> {
+class BallsInBox
+    : public Environment<fastrack_msgs::SensedSpheres, SphereSensorParams> {
 public:
   ~BallsInBox() {}
   explicit BallsInBox()
-    : Environment() {}
+      : Environment<fastrack::SensedSpheres, SphereSensorParams>() {}
 
   // Derived classes must provide a collision checker which returns true if
   // and only if the provided position is a valid collision-free configuration.
   // Provide a separate collision check for each type of tracking error bound.
-  bool IsValid(const Vector3d& position, const Box& bound) const;
+  bool IsValid(const Vector3d &position, const Box &bound) const;
 
   // Generate a sensor measurement.
-  fastrack_msgs::SensedSpheres SimulateSensor(
-    const SphereSensorParams& params) const;
+  fastrack_msgs::SensedSpheres
+  SimulateSensor(const SphereSensorParams &params) const;
 
   // Derived classes must have some sort of visualization through RViz.
   void Visualize() const;
@@ -80,16 +80,16 @@ public:
 private:
   // Load parameters. This may be overridden by derived classes if needed
   // (they should still call this one via Environment::LoadParameters).
-  bool LoadParameters(const ros::NodeHandle& n);
+  bool LoadParameters(const ros::NodeHandle &n);
 
   // Update this environment with the information contained in the given
   // sensor measurement.
   // NOTE! This function needs to publish on `updated_topic_`.
-  void SensorCallback(const fastrack_msgs::SensedSpheres::ConstPtr& msg);
+  void SensorCallback(const fastrack_msgs::SensedSpheres::ConstPtr &msg);
 
   // Generate random obstacles.
   void GenerateObstacles(size_t num, double min_radius, double max_radius,
-                         unsigned int seed=0);
+                         unsigned int seed = 0);
 
   // Obstacle centers and radii.
   std::vector<Vector3d> centers_;
