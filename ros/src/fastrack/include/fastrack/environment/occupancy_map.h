@@ -47,13 +47,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
 #ifndef FASTRACK_ENVIRONMENT_OCCUPANCY_MAP_H
 #define FASTRACK_ENVIRONMENT_OCCUPANCY_MAP_H
-=======
-#ifndef FASTRACK_ENVIRONMENT_ENVIRONMENT_H
-#define FASTRACK_ENVIRONMENT_ENVIRONMENT_H
->>>>>>> 7e1ffbacaa13e2307b8a1b9c9b235a088a3db4bd
 
 #include <fastrack/bound/box.h>
 #include <fastrack/utils/types.h>
